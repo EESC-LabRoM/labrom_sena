@@ -1,0 +1,10 @@
+<launch>
+  
+  <!-- ################           LABROM SENA STEERING NODE           ################## -->
+  <node name="steering_node" pkg="labrom_sena_steering" type="steering_node" output="screen">
+    
+    <param name="node_loop_rate" type="int" value="20"/>
+   
+  </node>
+
+</launch>

@@ -1,0 +1,11 @@
+<launch>
+  
+  <!-- ################           LABROM SENA COMMAND NODE           ################## -->
+  <node name="command_node" pkg="labrom_sena_commands" type="command_node" output="screen">
+    
+    <param name="ackermann_steering_ratio" type="int" value="1038"/>
+    <param name="node_loop_rate" type="int" value="20"/>
+   
+  </node>
+
+</launch>
