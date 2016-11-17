@@ -58,7 +58,8 @@ class SteerNode{
         roboteq_msgs::Command steering_;              //!< steering channel message to be sent
 
         //params  
-        
+       
+        double _motor_drive_ratio;        //!< Transmission ratio from steering motor drive to steering wheel
         int _loop_rate;                   //!< ROS loop rate
 
 

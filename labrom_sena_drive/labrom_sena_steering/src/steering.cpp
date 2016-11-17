@@ -26,6 +26,7 @@ namespace labrom_sena_steering{
  */
 SteerNode::SteerNode(void): pnh_("~"){
     // Params
+    pnh_.param("motor_drive_ratio", _motor_drive_ratio, 1.364);
     pnh_.param("node_loop_rate", _loop_rate, 20);
     // Start subscribers
     sub_steering_ = nh_.subscribe("steering_cmd", 1, &SteerNode::SteeringCallback, this);
@@ -52,7 +53,7 @@ void SteerNode::SteeringCallback(const labrom_sena_msgs::SteeringCommand::ConstP
 void SteerNode::PublishSteeringChannel(void){
 
     // Mount the steering channel drive command message
-    steering_.setpoint = (command_.angle * M_PI) / 180;
+    steering_.setpoint = (command_.angle * M_PI) * _motor_drive_ratio / 180;
     steering_.mode = roboteq_msgs::Command::MODE_POSITION_ANGULAR;
     
     pub_steering_channel_.publish(steering_);

@@ -3,6 +3,7 @@
   <!-- ################           LABROM SENA STEERING NODE           ################## -->
   <node name="steering_node" pkg="labrom_sena_steering" type="steering_node" output="screen">
     
+    <param name="motor_drive_ratio" type="double" value="1.364"/>
     <param name="node_loop_rate" type="int" value="20"/>
    
   </node>

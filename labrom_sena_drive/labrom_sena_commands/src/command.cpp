@@ -27,7 +27,7 @@ namespace labrom_sena_commands{
  */
 CmdNode::CmdNode(void): pnh_("~"){
 	// Paramas  
-	pnh_.param("ackermann_steering_ratio", _ackermann_steering_ratio, 1038);
+	pnh_.param("ackermann_steering_ratio", _ackermann_steering_ratio, 1054);
 	pnh_.param("node_loop_rate", _loop_rate, 20);
 	// Start subscribers
 	sub_ackermann_ = nh_.subscribe("ackermann_cmd", 1, &CmdNode::AckermannCallback, this);

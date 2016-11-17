@@ -1,0 +1,26 @@
+
+  STEERING CONTROL - SENA
+
+Estrutura de diretório
+
+/labrom_vehicle_sena
+	/sena_drive
+		/sena_steering (package)
+			/src
+
+
+steering.cpp
+
+ROS node for issuing Ackermann steering commands and manage the state of steering loop control.
+
+Must to covert ackekrmann steering command (radians) to steering wheel commands (degrees).
+
+Subscribed Topics
+
+	~<sena>/ackermann_cmd (ackermann_msgs/AckermannDriveStamped)
+
+Published Topics
+	
+	~<sena>/steering_cmd (sena_msgs/SteeringCmdStamped)
+
+
