@@ -5,7 +5,7 @@ project(labrom_sena_steering)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-#  labrom_sena_msgs
+  labrom_sena_commands
   roboteq_msgs
   roscpp
   std_msgs
@@ -102,9 +102,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES sena_steering
+  LIBRARIES sena_steering labrom_sena_commands
   CATKIN_DEPENDS roboteq_msgs roscpp std_msgs
-#  DEPENDS system_lib
+  DEPENDS system_lib
 )
 
 ###########
@@ -117,12 +117,13 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${labrom_sena_commands_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-# add_library(sena_steering
-#   src/${PROJECT_NAME}/sena_steering.cpp
-# )
+#add_library(sena_steering
+#src/${PROJECT_NAME}/sena_steering.cpp
+#)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -138,8 +139,7 @@ add_executable(steering_node src/steering.cpp)
 add_dependencies(steering_node labrom_sena_steering_generated_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(sena_steering_node
-#   ${catkin_LIBRARIES}
+#target_link_libraries(sena_steering_node  ${catkin_LIBRARIES}
 # )
 target_link_libraries(steering_node ${catkin_LIBRARIES})
 

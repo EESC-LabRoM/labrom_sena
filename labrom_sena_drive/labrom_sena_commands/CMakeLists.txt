@@ -101,9 +101,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES labrom_sena_commands
+  #LIBRARIES labrom_sena_commands
   CATKIN_DEPENDS ackermann_msgs roscpp std_msgs
-#  DEPENDS system_lib
+  DEPENDS system_lib
 )
 
 ###########
@@ -119,9 +119,9 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(labrom_sena_commands
-#   src/${PROJECT_NAME}/labrom_sena_commands.cpp
-# )
+#add_library(labrom_sena_commands
+#src/${PROJECT_NAME}/labrom_sena_commands.cpp
+#)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -165,11 +165,11 @@ target_link_libraries(command_node ${catkin_LIBRARIES})
 # )
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+  install(DIRECTORY include/${PROJECT_NAME}/
+   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+   FILES_MATCHING PATTERN "*.h"
+   PATTERN ".svn" EXCLUDE
+)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES
