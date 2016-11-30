@@ -66,19 +66,10 @@ void SteerNode::DriverStateCallback(const roboteq_msgs::Status::ConstPtr &msg){
  */
 void SteerNode::PublishSteeringChannel(void){
 
-	if(driver_state_ == DriverState::RUNNING)
-	{
-		// Mount the steering channel drive command message
-		steering_.setpoint = (command_.angle * M_PI) * _motor_drive_ratio / 180;
-		steering_.mode = roboteq_msgs::Command::MODE_POSITION_ANGULAR;
-	}
-	else
-	{
-		// Mount the steering channel drive command message to set Serial Mode
-		steering_.setpoint = 0;
-		steering_.mode = roboteq_msgs::Command::MODE_STOPPED;
-	}
-	
+	// Mount the steering channel drive command message
+	steering_.setpoint = setpoint_;
+	steering_.mode = mode_;
+
 	pub_steering_channel_.publish(steering_);
 }
 
@@ -122,6 +113,22 @@ int8_t SteerNode::GetDriverState(roboteq_msgs::Status _state)
       
 }
 
+/**
+ * Check Driver Fault Information
+ */
+
+ bool SteerNode::CheckDriverFault(void)
+ {
+
+	 if( state_.fault || (state_.status & roboteq_msgs::Status::STATUS_POWER_STAGE_OFF) || 
+	 (state_.status & roboteq_msgs::Status::STATUS_STALL_DETECTED) ||
+	 (state_.status & roboteq_msgs::Status::STATUS_AT_LIMIT) )
+	 {
+		 return true;
+	 }
+	 else
+	 	return false;
+ }
 
 /**
  * ROS spin loop
@@ -169,13 +176,27 @@ void SteerNode::Spin(void){
 					ROS_WARN("Roboteq Driver in Serial Mode and Runnnig Script");	
 				}
 
-				// Evaluate Fault Flag
-				// If FAULT, disable steering control and warn
-				
+				// Check for fault condiction on driver
+				if(CheckDriverFault())
+				{
+					// ROS Erros message
+					ROS_ERROR("Roboteq Driver Fault. Unable to control steering wheel");
+					// Set setpoint and mode to stopped mode
+					setpoint_ = 0;
+					mode_ = roboteq_msgs::Command::MODE_STOPPED;
+
+				}
+				else
+				{
+					// Set the desired setpoint
+					setpoint_ = (steer_limit_travel(command_.angle) * M_PI) * _motor_drive_ratio / 180;
+					mode_ = roboteq_msgs::Command::MODE_POSITION_ANGULAR;
+				}
+
 				// Publish steering channel drive message
 				PublishSteeringChannel();
-
-        break;
+        
+				break;
 
       default:
         break;

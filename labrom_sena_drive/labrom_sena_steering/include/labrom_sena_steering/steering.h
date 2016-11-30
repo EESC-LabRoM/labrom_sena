@@ -53,6 +53,8 @@ class SteerNode{
         void PublishSteeringChannel(void);
         //! Get Driver State
         int8_t GetDriverState(roboteq_msgs::Status _state);
+        //! Check Driver Fault
+        bool CheckDriverFault(void);
         //! Sping
         void Spin(void);
     
@@ -68,8 +70,13 @@ class SteerNode{
         roboteq_msgs::Status state_;                 //!< receiver roboteq driver status message
 
         typedef labrom_sena_msgs::DriverState DriverState;
-        DriverState::_state_type driver_state_;
-        DriverState::_state_type last_driver_state_;
+        DriverState::_state_type driver_state_;         //!< driver state
+        DriverState::_state_type last_driver_state_;    //!< last driver state
+
+        
+        typedef roboteq_msgs::Command Command;
+        Command::_setpoint_type setpoint_;             //!< desired steering setpoint
+        Command::_mode_type mode_;                     //!< Driver mode command
         
         //params  
        
