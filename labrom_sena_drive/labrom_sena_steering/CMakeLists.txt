@@ -6,6 +6,7 @@ project(labrom_sena_steering)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   labrom_sena_commands
+  roboteq_driver
   roboteq_msgs
   roscpp
   std_msgs
@@ -102,8 +103,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES sena_steering labrom_sena_commands
-  CATKIN_DEPENDS roboteq_msgs roscpp std_msgs
+  LIBRARIES sena_steering labrom_sena_commands 
+  CATKIN_DEPENDS roboteq_msgs roscpp std_msgs roboteq_driver
   DEPENDS system_lib
 )
 
@@ -118,6 +119,7 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS}
   ${labrom_sena_commands_INCLUDE_DIRS}
+  ${roboteq_driver_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library

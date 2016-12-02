@@ -19,7 +19,10 @@
 #ifndef SENASETUP_H_
 #define SENASETUP_H_
 
-float MaxSteerDegrees = 534;
+int MaxSteerDegrees = 534;
+int SteerEncoderTicks = 2000;  //!< Steering enconder ticks count per revolution
+//double MotorDriveRatio = 1.364; //<! Motor drive transmission ratio
+
 
 
 
@@ -31,6 +34,26 @@ inline float steer_limit_travel(float position)
   else if (position < -MaxSteerDegrees)
     position = -MaxSteerDegrees;
   return position;
+}
+
+/**
+ * Conversion of encoder ticks to radians. Note that this assumes a
+ * 500-line quadrature encoder (hence 2000).
+ *
+ * @param x Angular position in encoder ticks.
+ * @return Angular position in radians.
+ */
+inline double from_encoder_ticks(double x){
+
+  return x * (2 * M_PI) / SteerEncoderTicks;
+}
+
+/**
+ * Conversion from motor angle in radians to steering wheel angle in degrees.
+ */
+inline double from_motor_rads(double x, double ratio){
+
+  return x * 180 / (M_PI * ratio);
 }
 
 

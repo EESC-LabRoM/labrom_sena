@@ -5,6 +5,7 @@
     
     <param name="motor_drive_ratio" type="double" value="1.364"/>
     <param name="node_loop_rate" type="int" value="20"/>
+    <param name="steering_simulation" type="bool" value "0"/>
    
   </node>
 

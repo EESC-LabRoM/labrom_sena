@@ -49,6 +49,7 @@ add_message_files(
    FILES
    SteeringCommand.msg
    DriverState.msg
+   SteeringState.msg
 )
 
 ## Generate services in the 'srv' folder
